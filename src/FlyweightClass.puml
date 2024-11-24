@@ -1,0 +1,43 @@
+@startuml
+class Character {
+    - char character
+    - CharacterProperties characterProperty
+    + Character(char character, CharacterProperties characterProperty)
+    + setCharacter(char character)
+    + setCharacterProperty(CharacterProperties characterProperty)
+    + getCharacter(): char
+    + getFont(): String
+    + getColor(): String
+    + getSize(): int
+}
+
+class CharacterProperties {
+    - String font
+    - String color
+    - int size
+    + CharacterProperties(String font, String color, int size)
+    + getFont(): String
+    + getColor(): String
+    + getSize(): int
+}
+
+class CharacterPropertiesFactory {
+    - Map<String, CharacterProperties> flyweights
+    + setAndRetrieveFlyweightCharacterProperties(String font, String color, int size): CharacterProperties
+    + sizeOfMap(): int
+}
+
+class Document {
+    - List<Character> characters
+    - CharacterPropertiesFactory propertiesFactory
+    + addCharacter(char c, String font, String color, int size)
+    + editCharacterProperties(int index, String font, String color, int size)
+    + saveToFile(String filename)
+    + loadFromFile(String filename)
+}
+
+Character --> CharacterProperties : "1 uses 1"
+CharacterPropertiesFactory --> CharacterProperties : "manages"
+Document --> Character : "1 contains many"
+Document --> CharacterPropertiesFactory : "uses"
+@enduml

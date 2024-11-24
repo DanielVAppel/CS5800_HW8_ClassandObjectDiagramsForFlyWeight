@@ -1,0 +1,30 @@
+@startuml
+object Document {
+    characters = ["H", "e", "l", "l", "o", "W", "o", "r", "l", "d", "C", "S", "5", "8", "0"]
+    propertiesFactory = CharacterPropertiesFactory
+}
+
+object CharacterPropertiesFactory {
+    flyweights = [
+        "Arial-Black-14" -> CharacterProperties(font="Arial", color="Black", size=14),
+        "Verdana-Red-12" -> CharacterProperties(font="Verdana", color="Red", size=12),
+        "Verdana-Blue-18" -> CharacterProperties(font="Verdana", color="Blue", size=18)
+    ]
+}
+
+object Character_H {
+    character = "H"
+    characterProperty -> CharacterProperties(font="Arial", color="Black", size=14)
+}
+
+object Character_W {
+    character = "W"
+    characterProperty -> CharacterProperties(font="Verdana", color="Blue", size=18)
+}
+
+Document --> Character_H
+Document --> Character_W
+Document --> CharacterPropertiesFactory
+Character_H --> CharacterPropertiesFactory
+Character_W --> CharacterPropertiesFactory
+@enduml
